@@ -19,6 +19,18 @@ class ViewController: UIViewController {
     }
 
     @IBAction func signUpButtonTapped(_ sender: Any) {
+        
+        if emailTextField.text != "" && passwordTextField.text != "" {
+            Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { authDataResult, error in
+                if error != nil {
+                    self.throwAlert(titleInput: "Error!", messageInput: error?.localizedDescription ?? "An error occured. Please try again later!")
+                } else {
+                    self.performSegue(withIdentifier: "toFeedVC", sender: nil)
+                }
+            }
+        } else {
+            throwAlert(titleInput: "Alert!", messageInput: "Please fill email & password fields!")
+        }
     }
     @IBAction func signInButtonTapped(_ sender: Any) {
         
